@@ -13,7 +13,7 @@ class Solution:
 
         for word in strs:
             # 26 possible characters - only lowercase English letters
-            letters_count = [0 for i in range(0, 26)]  # a
+            letters_count = [0 for i in range(0, 26)]  # a, [0] * 26
 
             for letter in word:
                 letter_slot = ord(letter) - ord('a')
