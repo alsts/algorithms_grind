@@ -31,48 +31,51 @@ class Solution:
         return list(k_set)
 
     # Time Complexity: O(k log n), Memory Complexity: O(n)
-    def topKFrequentMaxHeap(self, nums: List[int], k: int) -> List[int]:
-        frequency_map = {}
-        heap = []
+    def topKFrequentHeap(self, nums: List[int], k: int) -> List[int]:
+        # count each number
+        num_counts = {}
+        for num in nums:
+            num_counts[num] = 1 + num_counts.get(num, 0)
 
-        for n in nums:
-            frequency_map[n] = 1 + frequency_map.get(n, 0)
+        # push (counts, number) tuple to Max Heap:
+        max_heap_by_count = []
+        for num, counts in num_counts.items():
+            tuple_count_num = (-1 * counts, num)  # negate to get Max Heap (heapq - is Min Heap)
+            heapq.heappush(max_heap_by_count, tuple_count_num)  # first val in tuple would be used for sorting
 
-        for key, val in frequency_map.items():
-            heapq.heappush(heap, (key * -1, val))
+        result = []
+        for i in range(k):
+            result.append(heapq.heappop(max_heap_by_count)[1])
 
-        most_frequent_items = []
-        for _ in range(k):
-            most_frequent_items.append(heapq.heappop(heap)[1])
-
-        return most_frequent_items
+        return result
 
     def topKFrequentBucketSort(self, nums: List[int], k: int) -> List[int]:
-        counts = {}
-        freq_buckets = [[] for i in range(0, len(nums) + 1)]  # max bucket can be the size of nums
-
+        # count each number
+        num_counts = {}
         for num in nums:
-            counts[num] = 1 + counts.get(num, 0)
+            num_counts[num] = 1 + num_counts.get(num, 0)
 
-        for num, count in counts.items():
-            freq_buckets[count].append(num)
+        # buckets sort
+        buckets = [[] for i in range(len(nums) + 1)]  # +1 needed since counts would be represented by index
+        for num, counts in num_counts.items():
+            buckets[counts].append(num)
 
-        res = []
+        # loop backwards in buckets to get the highest num counts first:
+        result = []
+        for i in range(len(buckets) - 1, 0, -1):  # range (from, to, step)
+            if len(buckets[i]) > 0:
+                for num in buckets[i]:
+                    result.append(num)
 
-        # loop through buckets in reverse order:
-        for i in range(len(freq_buckets) - 1, 0, -1):
-            for num in freq_buckets[i]:
-                res.append(num)
-                if len(res) == k:
-                    return res
-
+                    if len(result) == k:
+                        return result
 
 solution = Solution()
 print(solution.topKFrequentBruteForce([1, 2, 2, 3, 3, 3], 2))
 print(solution.topKFrequentBruteForce([7, 7], 1))
 
-print(solution.topKFrequentMaxHeap([1, 2, 2, 3, 3, 3], 2))
-print(solution.topKFrequentMaxHeap([7, 7], 1))
+print(solution.topKFrequentHeap([1, 2, 2, 3, 3, 3], 2))
+print(solution.topKFrequentHeap([7, 7], 1))
 
 print(solution.topKFrequentBucketSort([1, 2, 2, 3, 3, 3], 2))
 print(solution.topKFrequentBucketSort([7, 7], 1))

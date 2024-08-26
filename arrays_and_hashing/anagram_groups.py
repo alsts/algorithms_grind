@@ -8,6 +8,20 @@ from typing import List
 # Time Complexity: O(n*m) n->words, m->average letters in words, Memory Complexity: O(n)
 class Solution:
 
+    def groupAnagrams3(self, strs: List[str]) -> List[List[str]]:
+        anagrams = defaultdict(list)
+
+        for word in strs:
+            # 26 possible characters - only lowercase English letters
+            letters_count = {}
+
+            for letter in word:
+                letters_count[letter] = 1 + letters_count.get(letter, 0)
+
+            anagrams[tuple(letters_count)].append(word)
+
+        return list(anagrams.values())
+
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         anagrams = defaultdict(list)
 
