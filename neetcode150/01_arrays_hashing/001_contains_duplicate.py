@@ -15,9 +15,22 @@ from typing import List, Optional
 
 
 class Solution:
-    pass  # paste the method signature from the problem
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        hashset = set()
 
+        for n in nums:
+            if n in hashset:
+                return True
+            else:
+                hashset.add(n)
+            
+        return False
 
 # Paste the examples from the problem, then: uv run pytest neetcode150/01_arrays_hashing/001_contains_duplicate.py
 def test_example_1():
-    pass
+    solution = Solution()
+    assert solution.hasDuplicate([1, 2, 3, 4, 1]) is True
+
+def test_example_2():
+    solution = Solution()
+    assert solution.hasDuplicate([1, 2, 3, 4]) is False
