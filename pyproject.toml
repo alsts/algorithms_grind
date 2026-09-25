@@ -1,0 +1,21 @@
+[project]
+name = "algorithms-grind"
+version = "0.1.0"
+description = "NeetCode 150 in Python"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.pytest.ini_options]
+testpaths = ["neetcode150", "retest"]
+python_files = ["*.py"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+extend-exclude = ["archive_2024"]
+
+[tool.ruff.lint]
+ignore = ["DTZ"]  # local dates are intended

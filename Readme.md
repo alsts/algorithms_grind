@@ -1,45 +1,40 @@
-# Algorithm Grind 📚
+# Algorithm Grind
 
-Welcome to Algorithm Grind! 💻 This repository is dedicated to helping you master all core algorithms using Python. Whether you're a beginner or a seasoned programmer, Algorithm Grind is here to provide you with the resources and guidance you need to level up your algorithmic skills. 🚀
+NeetCode 150 in Python. Part of the 8-week interview sprint (28 Sep – 22 Nov 2026). The day-by-day plan lives in the Obsidian vault: *Interview Sprint — 8-Week Plan*.
 
-## What is Algorithm Grind? 🤔
+## Setup
 
-Algorithm Grind is a curated collection of algorithms implemented in Python, accompanied by detailed explanations and analysis. Our mission is to make learning algorithms fun, accessible, and rewarding for everyone. 🎉
+```bash
+uv sync
+```
 
-## How to Use Algorithm Grind 📝
+## Daily loop
 
-1. **Browse Algorithms**: Explore our collection of algorithms organized by category. From sorting and searching to graph algorithms and dynamic programming, we've got you covered.
+```bash
+uv run new.py              # scaffold the next problem in roadmap order
+uv run new.py 42           # or by number / slug: uv run new.py two-sum
+uv run pytest neetcode150/01_arrays_hashing/001_contains_duplicate.py
+```
 
-2. **Read & Learn**: Dive into the code and accompanying explanations to understand how each algorithm works. We break down the concepts step by step, making complex algorithms easier to grasp.
+1. Open the NeetCode link in the file header and read the problem. Don't watch the video yet.
+2. Fill in the *say it out loud first* block: brute force, then optimal, then complexity.
+3. Paste the method signature + examples as tests, then solve. **Cap: 20 min on easies, 30 min on mediums.**
+4. Stuck at the cap → watch the NeetCode video, then write the code yourself. Mark 🔴.
+5. Put the minutes and result in the header, and tick the problem off in the vault's *NeetCode 150 Tracker*.
 
-3. **Practice**: Reinforce your understanding by practicing with our interactive coding exercises. Challenge yourself to solve problems and apply the algorithms you've learned.
+## Retests (Sundays)
 
-4. **Contribute**: Join our community of learners and contributors! If you have improvements to suggest or new algorithms to add, feel free to submit a pull request.
+```bash
+uv run new.py 42 --retest   # blank copy in retest/, solve it blind
+```
 
-## Categories 📋
+Every 🔴 gets a blind retest within 7 days.
 
-- **Sorting Algorithms**: Explore various sorting techniques such as bubble sort, merge sort, quicksort, and more.
-- **Searching Algorithms**: Learn about algorithms like linear search, binary search, and depth-first search.
-- **Graph Algorithms**: Understand graph traversal, shortest path algorithms, minimum spanning trees, and more.
-- **Dynamic Programming**: Master dynamic programming techniques for solving optimization problems efficiently.
-- **And Many More!**: From basic data structures to advanced algorithms, Algorithm Grind covers a wide range of topics.
+## Layout
 
-## Get Started 🚀
-
-Ready to begin your algorithmic journey? Start by exploring our collection and selecting an algorithm that interests you. Happy coding! 💻
-
-## Contributors 🙌
-
-Algorithm Grind is made possible by contributions from developers and educators like you. Thank you to all our contributors for helping make this project a success!
-
-## License 📄
-
-This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Feedback 📬
-
-Have feedback or suggestions? We'd love to hear from you! Feel free to [open an issue](https://github.com/yourusername/algorithm-grind/issues) or [contact us](mailto:contact@algorithmgrind.com).
-
----
-
-*Algorithm Grind - Mastering Algorithms One Step at a Time* 🌟
+| Path | What |
+|---|---|
+| `neetcode150/NN_topic/NNN_problem.py` | This sprint's solutions, one per problem |
+| `retest/` | Blind re-solves, dated |
+| `problems.py` | The 150 in NeetCode roadmap order |
+| `archive_2024/` | First attempt (2024): 13 problems. Re-read them the weekend before Week 1 as a warm-up, then re-solve them from scratch in Week 1 |
