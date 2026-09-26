@@ -1,14 +1,7 @@
 """
-001. Contains Duplicate (Arrays & Hashing)
-NeetCode: https://neetcode.io/solutions/contains-duplicate
-LeetCode: https://leetcode.com/problems/contains-duplicate/
+Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
 
-Started: 2026-09-25   Minutes: __   Result: ☐ ✅ solo · 🟡 hint · 🔴 read solution
-
-Say it out loud first:
-  brute force:
-  optimal:
-  time / space:
+Time Complexity: O(n), Space Complexity: O(n)
 """
 
 from typing import List, Optional
