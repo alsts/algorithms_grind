@@ -16,7 +16,7 @@ class Solution:
                 return [visited[target - n], i]
             visited[n] = i
 
-        return [1, 2]
+        return []
 
 
 # Paste the examples from the problem, then: uv run pytest neetcode150/01_arrays_hashing/003_two_sum.py
