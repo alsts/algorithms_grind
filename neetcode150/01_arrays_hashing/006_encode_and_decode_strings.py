@@ -10,6 +10,10 @@ Constraints:
   strs[i] contains only UTF-8 characters.
 
 Time Complexity: O(n), Memory Complexity: O(n)
+
+Notes:
+  - Length prefix 'len#word' → '#' or digits inside words can't break decoding.
+  - Decode with two pointers on one string; slicing s = s[...] each loop copies → O(n²).
 """
 
 from typing import List

@@ -3,6 +3,10 @@ Given an array of integers nums and an integer target, return the indices i and 
 You may assume that every input has exactly one pair of indices i and j that satisfy the condition.
 
 Time Complexity: O(n), Memory Complexity: O(n)
+
+Notes:
+  - Store value → index; look for target - n BEFORE adding n (no self-match, handles [5, 5]).
+  - Key check: `x in dict` is O(1), checks keys only.
 """
 
 from typing import List, Optional

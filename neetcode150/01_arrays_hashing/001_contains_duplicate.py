@@ -2,6 +2,10 @@
 Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
 
 Time Complexity: O(n), Space Complexity: O(n)
+
+Notes:
+  - Set lookup is O(1) → check before add, return on first repeat.
+  - Alt: len(set(nums)) != len(nums), same Big O, no early exit.
 """
 
 from typing import List, Optional

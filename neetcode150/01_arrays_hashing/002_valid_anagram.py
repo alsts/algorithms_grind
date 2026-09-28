@@ -3,6 +3,11 @@ Given two strings s and t, return true if the two strings are anagrams of each o
 An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
 
 Time Complexity: O(n), Space Complexity: O(n)
+
+Notes:
+  - Different lengths → False early.
+  - Compare letter counts, not sets: 'aab' vs 'abb' have same letters, different counts.
+  - Alt: sorted(s) == sorted(t) → O(n log n), or Counter(s) == Counter(t).
 """
 
 from typing import List, Optional

@@ -5,6 +5,11 @@ An anagram is a string that contains the exact same characters as another string
 strs[i] is made up of lowercase English letters! ****
 
 Time Complexity: O(n*m) n->words, m->average letters in words, Memory Complexity: O(n)
+
+Notes:
+  - Anagrams share a key: sorted word or 26-letter count.
+  - Count list must become tuple(...) → lists can't be dict keys.
+  - ord(c) - ord('a') maps 'a'..'z' → 0..25.
 """
 
 from collections import defaultdict

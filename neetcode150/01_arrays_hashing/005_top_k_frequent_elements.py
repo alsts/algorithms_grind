@@ -8,6 +8,11 @@ n = len(nums), m = distinct values
 topKFrequent            Time: O(n + m log m)      Memory: O(m)
 topKFrequentTiny        Time: O(n + m + k log m)  Memory: O(m)
 topKFrequentBucketSort  Time: O(n)                Memory: O(n)
+
+Notes:
+  - Heap: push (-count, num) for max-heap; heapify is O(m) vs m pushes O(m log m).
+  - Bucket sort: index = frequency, max freq = n → n + 1 buckets.
+  - Bucket scan is O(n + m) not O(n·m): each num sits in exactly one bucket.
 """
 
 import heapq

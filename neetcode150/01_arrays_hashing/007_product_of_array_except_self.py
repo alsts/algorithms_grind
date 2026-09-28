@@ -13,6 +13,11 @@ Constraints:
 productExceptSelfBrute              Time: O(n²)  Memory: O(1)
 productExceptSelfDynamic            Time: O(n)   Memory: O(n)
 productExceptSelfDynamicOptimised   Time: O(n)   Memory: O(1)  (output array doesn't count)
+
+Notes:
+  - output[i] = prefix[i - 1] × postfix[i + 1], use 1 at the edges.
+  - Products start at 1 (sums at 0). Overwrite with =, combine with *=.
+  - Optimised: use running value first, then multiply in nums[i] → self never included.
 """
 
 from typing import List
