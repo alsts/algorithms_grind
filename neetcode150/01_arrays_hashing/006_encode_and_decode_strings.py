@@ -33,7 +33,7 @@ class Solution:
 
             # select the number of letters in encoded word
             while s[j] != "#":
-                j += 1
+                j += 1 # j == #
 
             word_len = int(s[i:j])
             i = j + 1  # word start
