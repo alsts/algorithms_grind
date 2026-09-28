@@ -36,6 +36,11 @@ class Solution:
 
         return products
 
+    # output[i] = (product of everything LEFT of i) × (product of everything RIGHT of i) = prefix[i - 1] × postfix[i + 1]
+    # prefix arr:  [1,   2,  6, 24]
+    # postfix arr: [24, 24, 12, 4 ]
+    # For example: for i = 1 -> prefix before i = 1, postfix after i = 12
+    # result: [1*24, 1 * 12, 2*4, 6 * 1]
     def productExceptSelfDynamic(self, nums: List[int]) -> List[int]:
         result = []
 
