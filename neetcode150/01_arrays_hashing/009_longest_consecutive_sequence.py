@@ -9,13 +9,12 @@ Constraints:
   0 <= nums.length <= 1000
   -10^9 <= nums[i] <= 10^9
 
-longestConsecutive (count up from every num)  Time: O(n²)  Memory: O(n)
-Target: O(n) time, O(n) memory.
+Time Complexity: O(n), Memory Complexity: O(n)
 
 Notes:
   - set(nums) is O(n) to build, `x in set` is O(1) on average.
-  - Counting up from every num recounts the same run → [1..5] costs 4 + 3 + 2 + 1 checks.
-  - Fix: only count from the start of a run → each num counted once → O(n).
+  - Only count from a run start (num - 1 not in set) → each num counted once → O(n).
+  - Loop over the set, not nums: duplicate run starts would recount the run → O(n²).
 """
 
 from typing import List
