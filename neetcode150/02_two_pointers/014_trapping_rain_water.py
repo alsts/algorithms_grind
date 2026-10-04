@@ -9,7 +9,8 @@ Constraints:
   1 <= height.length <= 1000
   0 <= height[i] <= 1000
 
-Time Complexity: __, Memory Complexity: __
+trapBrute  Time: O(n²)  Memory: O(1)
+trap       Time: O(n)   Memory: O(1)
 """
 
 from typing import List
@@ -18,12 +19,48 @@ import pytest
 
 
 class Solution:
+    def trapBrute(self, height: List[int]) -> int:
+        if not height:
+            return 0
+
+        res = 0
+        n = len(height)
+
+        # one column of water per bar
+        for i in range(n):
+            left_max = right_max = height[i]  # start at bar itself → never negative
+
+            for j in range(0, i):  # tallest wall on the left
+                left_max = max(left_max, height[j])
+            for j in range(i + 1, n):  # tallest wall on the right
+                right_max = max(right_max, height[j])
+
+            res += min(left_max, right_max) - height[i]  # lower wall = water level, minus ground
+
+        return res
+
     def trap(self, height: List[int]) -> int:
-        return 0
+        if not height:
+            return 0
+
+        res = 0
+
+        l, r = 0, len(height) - 1
+        left_max, right_max = height[l], height[r]
+        while l < r:
+            if left_max < right_max:  # lower wall decides the level → settle left
+                l += 1
+                left_max = max(left_max, height[l])  # tallest so far vs new bar
+                res += left_max - height[l]  # lower than wall → water; new wall → 0
+            else:  # right wall is lower (or equal) → settle right
+                r -= 1
+                right_max = max(right_max, height[r])
+                res += right_max - height[r]
+        return res
 
 
 # Add each new variant's method name here.
-METHODS = ["trap"]
+METHODS = ["trapBrute", "trap"]
 
 
 @pytest.mark.parametrize("method", METHODS)

@@ -8,7 +8,7 @@ Constraints:
   2 <= heights.length <= 1000
   0 <= heights[i] <= 1000
 
-Time Complexity: __, Memory Complexity: __
+Time Complexity: O(n), Memory Complexity:O(1)
 """
 
 from typing import List
@@ -17,8 +17,28 @@ import pytest
 
 
 class Solution:
+    def maxAreaBrute(self, heights: List[int]) -> int:
+        res = 0
+        for i in range(len(heights)):
+            for j in range(i + 1, len(heights)):
+                res = max(res, min(heights[i], heights[j]) * (j - i))
+        return res
+
     def maxArea(self, heights: List[int]) -> int:
-        return 0
+        l, r = 0, len(heights) - 1
+        max_area = 0
+
+        while l < r:
+            width = r - l
+            min_bar_height = min(heights[l], heights[r])
+            max_area = max(max_area, min_bar_height * width)
+
+            if heights[l] < heights[r]:
+                l += 1
+            else:
+                r -= 1
+
+        return max_area
 
 
 # Add each new variant's method name here.

@@ -22,6 +22,17 @@ import pytest
 
 
 class Solution:
+    def threeSumBrute(self, nums: List[int]) -> List[List[int]]:
+        res = set()
+        nums.sort()
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                for k in range(j + 1, len(nums)):
+                    if nums[i] + nums[j] + nums[k] == 0:
+                        tmp = [nums[i], nums[j], nums[k]]
+                        res.add(tuple(tmp))
+        return [list(i) for i in res]
+
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         result = []
         nums.sort()
@@ -49,7 +60,7 @@ class Solution:
                     l += 1
                     r -= 1
 
-                    # duplicate left second number
+                    # duplicate left second number as we just added
                     while l < r and nums[l] == nums[l - 1]:
                         l += 1
 
@@ -57,7 +68,7 @@ class Solution:
 
 
 # Add each new variant's method name here.
-METHODS = ["threeSum"]
+METHODS = ["threeSum", "threeSumBrute"]
 
 
 # Triplets and their order don't matter, so compare sorted.
