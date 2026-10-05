@@ -8,7 +8,14 @@ Constraints:
   2 <= heights.length <= 1000
   0 <= heights[i] <= 1000
 
-Time Complexity: O(n), Memory Complexity:O(1)
+maxAreaBrute  Time: O(n²)  Memory: O(1)
+maxArea       Time: O(n)   Memory: O(1)
+
+Notes:
+  - Area = shorter bar × width; bars in between are ignored.
+  - Start widest (l = 0, r = n - 1), move the SHORTER bar inward.
+  - Why: keeping the shorter bar, any narrower pair is smaller (height capped, width shrinks) → safe to drop it.
+  - Keep looping: a tall pair in the middle can beat a wide one ([1, 100, 100, 1] → 100).
 """
 
 from typing import List
@@ -42,7 +49,7 @@ class Solution:
 
 
 # Add each new variant's method name here.
-METHODS = ["maxArea"]
+METHODS = ["maxAreaBrute", "maxArea"]
 
 
 @pytest.mark.parametrize("method", METHODS)

@@ -9,8 +9,19 @@ Constraints:
   1 <= height.length <= 1000
   0 <= height[i] <= 1000
 
-trapBrute  Time: O(n²)  Memory: O(1)
-trap       Time: O(n)   Memory: O(1)
+trapBrute   Time: O(n²)  Memory: O(1)
+trapPrefix  Time: O(n)   Memory: O(n)
+trap        Time: O(n)   Memory: O(1)
+
+Notes:
+  - Count one column at a time: water[i] = min(tallest left, tallest right) - height[i].
+  - Subtract height[i]: the bar is ground, water sits on top of it.
+  - Prefix: maxL[] left → right, maxR[] right → left (like Product Except Self, with max).
+    Store the max BEFORE adding the bar (strictly left/right) → can go negative, keep only water > 0.
+    Update the running max with height[i], not with the array itself (else it stays 0).
+  - Two pointers: settle the side with the LOWER max → its level is known, the other side is at least as tall.
+  - Update max BEFORE adding water → a new tallest bar adds 0, never negative.
+  - Short bumps below the level get covered; a taller bump becomes the new wall for columns past it.
 """
 
 from typing import List
@@ -39,6 +50,31 @@ class Solution:
 
         return res
 
+    def trapPrefix(self, height: List[int]) -> int:
+        if not height:
+            return 0
+
+        left_max = [0] * len(height)
+        right_max = [0] * len(height)
+
+        left_max_cur = 0
+        for i in range(len(height)):
+            left_max[i] = left_max_cur
+            left_max_cur = max(left_max_cur, height[i])
+
+        right_max_cur = 0
+        for i in range(len(height) - 1, -1, -1):
+            right_max[i] = right_max_cur
+            right_max_cur = max(right_max_cur, height[i])
+
+        res = 0
+        for i in range(len(height)):
+            water = min(left_max[i], right_max[i]) - height[i]
+            if water > 0:
+                res += water
+
+        return res
+
     def trap(self, height: List[int]) -> int:
         if not height:
             return 0
@@ -60,7 +96,7 @@ class Solution:
 
 
 # Add each new variant's method name here.
-METHODS = ["trapBrute", "trap"]
+METHODS = ["trapBrute", "trap", "trapPrefix"]
 
 
 @pytest.mark.parametrize("method", METHODS)

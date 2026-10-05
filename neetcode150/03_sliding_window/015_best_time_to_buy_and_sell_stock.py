@@ -9,6 +9,12 @@ Constraints:
   0 <= prices[i] <= 100
 
 Time Complexity: O(n), Memory Complexity: O(1)
+
+Notes:
+  - l = buy day, r = sell day; r walks forward every step.
+  - Price at r lower than at l → new cheapest day, move l = r (later sells only get better from it).
+  - Track max profit, not max - min: the min may come after the max ([2, 9, 1, 3] → 7).
+  - Never sell → profit 0, so maxP starts at 0.
 """
 
 from typing import List
