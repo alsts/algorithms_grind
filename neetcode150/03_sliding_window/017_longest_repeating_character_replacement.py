@@ -8,7 +8,13 @@ Constraints:
   1 <= s.length <= 1000
   0 <= k <= s.length
 
-Time Complexity: __, Memory Complexity: __
+Time Complexity: O(26·n) = O(n), Memory Complexity: O(26) = O(1)
+
+Notes:
+  - Window is valid if (window size - count of its most frequent char) <= k → the rest get replaced.
+  - Add s[r] FIRST, then shrink: count must match s[l..r] exactly.
+  - count[s[l]] -= 1 never goes negative: s[l] is in the window, so its count is >= 1. Zero is fine.
+  - max(count.values()) scans at most 26 letters → O(26) per step.
 """
 
 from typing import List
@@ -18,7 +24,21 @@ import pytest
 
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        return 0
+        max_res = 0
+        count = {}
+        l = 0
+
+        for r in range(len(s)):
+            count[s[r]] = count.get(s[r], 0) + 1  # add char first
+
+            # chars to replace = window size - most frequent char; too many → shrink
+            while (r - l + 1) - max(count.values()) > k:
+                count[s[l]] -= 1  # s[l] is in the window → never below 0
+                l += 1
+
+            max_res = max(max_res, r - l + 1)
+
+        return max_res
 
 
 # Add each new variant's method name here.
