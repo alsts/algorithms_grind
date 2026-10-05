@@ -17,8 +17,9 @@ Notes:
   - Count one column at a time: water[i] = min(tallest left, tallest right) - height[i].
   - Subtract height[i]: the bar is ground, water sits on top of it.
   - Prefix: maxL[] left → right, maxR[] right → left (like Product Except Self, with max).
-    Inclusive: maxL[i] = max(maxL[i - 1], height[i]), edges = height[0] / height[-1] (not 0, or outer walls are lost).
-    Includes the bar itself → water never negative.
+    Exclusive (NeetCode's table): maxL[i] = max(maxL[i - 1], height[i - 1]), edges = 0 (nothing beyond).
+    Bar itself not included → water can go negative for a tall bar → keep only water > 0.
+    Inclusive alt: use height[i] and edges height[0] / height[-1] → never negative. Don't mix the two.
   - Two pointers: settle the side with the LOWER max → its level is known, the other side is at least as tall.
   - Update max BEFORE adding water → a new tallest bar adds 0, never negative.
   - Short bumps below the level get covered; a taller bump becomes the new wall for columns past it.
@@ -57,13 +58,13 @@ class Solution:
         left_max = [0] * len(height)
         right_max = [0] * len(height)
 
-        left_max[0] = height[0]
+        left_max[0] = 0  # nothing on the left
         for i in range(1, len(height)):
-            left_max[i] = max(left_max[i - 1], height[i])
+            left_max[i] = max(left_max[i - 1], height[i - 1])  # tallest strictly before i
 
-        right_max[len(height) - 1] = height[-1]
+        right_max[len(height) - 1] = 0  # nothing on the right
         for i in range(len(height) - 2, -1, -1):
-            right_max[i] = max(right_max[i + 1], height[i])
+            right_max[i] = max(right_max[i + 1], height[i + 1])  # tallest strictly after i
 
         res = 0
         for i in range(len(height)):
