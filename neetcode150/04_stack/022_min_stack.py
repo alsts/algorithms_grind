@@ -13,7 +13,13 @@ Constraints:
   -2^31 <= val <= 2^31 - 1
   pop, top and getMin will always be called on non-empty stacks.
 
-Time Complexity: __, Memory Complexity: __
+Time Complexity: O(1) per operation, Memory Complexity: O(n)
+
+Notes:
+  - Second stack min_stack[i] = min of stack[0..i] → top of min_stack is always the current min.
+  - push: append min(val, current min); pop: pop both stacks together → min restored for free.
+  - Duplicates handled: each push gets its own min entry, so popping one 2 keeps the other.
+  - Memory O(n): two stacks of n each (2n).
 """
 
 from typing import List
@@ -23,19 +29,23 @@ import pytest
 
 class MinStack:
     def __init__(self):
-        pass
+        self.stack = []
+        self.min_stack = []
 
     def push(self, val: int) -> None:
-        pass
+        self.stack.append(val)
+        val = min(val, self.min_stack[-1] if self.min_stack else val) # fallback to val if min stack is empty
+        self.min_stack.append(val)
 
     def pop(self) -> None:
-        pass
+        self.stack.pop()
+        self.min_stack.pop()
 
     def top(self) -> int:
-        return 0
+        return self.stack[-1]
 
     def getMin(self) -> int:
-        return 0
+        return self.min_stack[-1]
 
 
 # Add each new variant's class name here.
